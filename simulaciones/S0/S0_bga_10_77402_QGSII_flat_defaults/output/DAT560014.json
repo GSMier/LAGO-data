@@ -1,0 +1,15 @@
+{
+    "Id": "DAT560014",
+    "type": "S0",
+    "generationDate": "2021-04-16T10:54:03.654339Z",
+    "metadata": "a0a154931280740f70957b476cc48f66042a2bb40f0834d127ac21fd8a16e031",
+    "rawData": "296920d2568cc861208ec12500e5b7dc746e2ec18969c6f8b1d55b0202fd1d08",
+    "inputData": "252143e9f753c77c65be2b9109e04e8ae0fc244448dbea1d94fbdabefeac6fbd",
+    "inputMetadata": "5075bd92e03fac8546507011568302391f7c5ca29e92d9e39eb3c3f828bab77b",
+    "outputData": "af1dae94414bef7f7fadf3fa2458b2bf7d38aac8821b5bda832743175643ec0b",
+    "outputMetadata": "071d7bd47f4d86d0e6b85a8384d7326d93f9b71fe03549d2e5c2740850155e89",
+    "siteName": "bga",
+    "collaboratorName": null,
+    "orcid": "https://orcid.org/0000-0001-6497-753X",
+    "accessUrl": "https://datahub.egi.eu/not_published_yet"
+}

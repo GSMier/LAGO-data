@@ -1,0 +1,15 @@
+{
+    "Id": "ESPOCH_nogps_2016_05_22_12h00",
+    "type": "L0",
+    "generationDate": "2016 05_22_12:00:00",
+    "metadata": "78d4e13fe092aecec3f9e43996ff7792edf69d1c5d4169c13121dcf20fcde14b",
+    "rawData": "1bff1a2232033b11a0ef7dbea6bcab1f47f31c8cb85b6fced89a840f84d5ee76",
+    "inputData": null,
+    "inputMetadata": null,
+    "outputData": null,
+    "outputMetadata": null,
+    "siteName": "\"Escuela Superior Polit\u00e9cnica de Chimborazo\"",
+    "collaboratorName": "\"Mario Audelo\"",
+    "orcid": "\"0000-0000-0000-0000\"",
+    "accessUrl": null
+}

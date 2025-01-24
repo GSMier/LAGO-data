@@ -1,0 +1,5 @@
+input/
+output/
+.dockerignore
+Dockerfile
+docker-compose.yaml

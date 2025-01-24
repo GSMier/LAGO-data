@@ -1,0 +1,8 @@
+services:
+  process_files:
+    image: s1_processs_files
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+      - ./metadata:/app/metadata
+    restart: 'no' # Equivalent to --rm (no restart policy)

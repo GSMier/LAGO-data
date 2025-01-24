@@ -1,0 +1,17 @@
+{
+    "Id": "S1_bga_60_77402_QGSII_flat_defaults_003216.pri",
+    "type": "S1",
+    "generationDate": "2022-10-20T09:24:21.647593Z",
+    "metadata": {
+        "primary": "651b1805af4d85bb13c5a96f587368cca357118547656452ae9d248a2e03658a",
+        "secondary": "c9e6bddd586ff9ed80505055023a050b07e0eb039b8f0963c518b5ff76ffc411"
+    },
+    "rawData": {
+        "primary": "dd2774f8089e6b80f8cab34701e22bdfd3101d91b9417f81c8590ad832d2ae53",
+        "secondary": "dd760736efe037cf1e2eb30a86b79df48693eb2d2ddd8e2d0dec9902eef74510"
+    },
+    "siteName": "bga",
+    "collaboratorName": null,
+    "orcid": "https://orcid.org/0000-0002-4559-8785",
+    "accessUrl": "https://datahub.egi.eu/not_published_yet"
+}

@@ -1,0 +1,7 @@
+services:
+  process_files:
+    image: l0_processs_files
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+    restart: 'no' # Equivalent to --rm (no restart policy)
