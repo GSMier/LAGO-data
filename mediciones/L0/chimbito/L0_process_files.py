@@ -82,14 +82,9 @@ def process_files(input_folder, output_folder):
                 "hash": dat_hash,
                 "location": f"/{root_path}/{base_name}.dat.bz2"
             },
-            "inputData": None,
-            "inputMetadata": None,
-            "outputData": None,
-            "outputMetadata": None,
             "siteName": metadata.get("siteInst", None).replace('"', ""),
             "collaboratorName": metadata.get("siteRespName", None).replace('"', ""),
             "orcid": metadata.get("siteRespId", None).replace('"', ""),
-            "accessUrl": None
         }
 
         # Write JSON to output file

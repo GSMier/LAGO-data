@@ -2,14 +2,15 @@
     "Id": "ESPOCH_nogps_2016_05_25_16h00",
     "type": "L0",
     "generationDate": "2016 05_25_16:00:00",
-    "metadata": "cf6e8e779360dee98ed2d271846138aa9bfedf2d464b7d89d5658f92b69955e8",
-    "rawData": "cafa526835c96d47f32301b955d70f9d41477f3ba31eb8774db312b3ade485de",
-    "inputData": null,
-    "inputMetadata": null,
-    "outputData": null,
-    "outputMetadata": null,
-    "siteName": "\"Escuela Superior Polit\u00e9cnica de Chimborazo\"",
-    "collaboratorName": "\"Mario Audelo\"",
-    "orcid": "\"0000-0000-0000-0000\"",
-    "accessUrl": null
+    "metadata": {
+        "hash": "cf6e8e779360dee98ed2d271846138aa9bfedf2d464b7d89d5658f92b69955e8",
+        "location": "/Chimbito/ESPOCH_nogps_2016_05_25_16h00.mtd.bz2"
+    },
+    "rawData": {
+        "hash": "cafa526835c96d47f32301b955d70f9d41477f3ba31eb8774db312b3ade485de",
+        "location": "/Chimbito/ESPOCH_nogps_2016_05_25_16h00.dat.bz2"
+    },
+    "siteName": "Escuela Superior Polit\u00e9cnica de Chimborazo",
+    "collaboratorName": "Mario Audelo",
+    "orcid": "0000-0000-0000-0000"
 }
