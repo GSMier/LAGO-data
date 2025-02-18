@@ -2,14 +2,35 @@
     "Id": "S0_bga_10_77402_QGSII_flat_defaults_DAT290014",
     "type": "S0",
     "generationDate": "2021-04-16T10:53:22.610945Z",
-    "metadata": "e23ec7d2e6ca64d7a38c0e24d351cee6e4af715bcb7cc7045d824321f0f7a795",
-    "rawData": "b08ca0d193c402dcb5b393dea4006330346bd3a1557ef6dd662306ddbe93c11d",
-    "inputData": "2f54e372ebfe9544e8fbe07208bacc67c44bde2e2a8c69cb7d4ef5b81a0659cf",
-    "inputMetadata": "b034ce5857e94075109706c4d1b785a6e3cfcef33ebe7f4d54b10f0af49e9831",
-    "outputData": "38d08013b1c888947605356768ed5377e2537915579955135ce3104de8424fe2",
-    "outputMetadata": "90f373bad595a3aa2c35cb28281531bbd5f3d8b53d4c61a3448994362359a4f9",
+    "metadata": {
+        "hash": "5af356ece90e3ef1bd017514aa8508dfd57e660e02071dafbc0092fcdfaa3420",
+        "location": "./.metadata/.DAT290014.bz2.jsonld.20220701T110742.725809Z"
+    },
+    "rawData": {
+        "hash": "b08ca0d193c402dcb5b393dea4006330346bd3a1557ef6dd662306ddbe93c11d",
+        "location": "/S0_bga_10_77402_QGSII_flat_defaults/DAT290014.bz2"
+    },
+    "inputData": {
+        "hash": "2f54e372ebfe9544e8fbe07208bacc67c44bde2e2a8c69cb7d4ef5b81a0659cf",
+        "location": "/S0_bga_10_77402_QGSII_flat_defaults/DAT290014-0014-00000000366.input"
+    },
+    "inputMetadata": {
+        "hash": "ce4b8ebd80e96e89eb714cc71f145b14a072f37fbeae563378c969ab967b1c83",
+        "location": "./.metadata/.DAT290014-0014-00000000366.input.jsonld.20220701T110738.209841Z"
+    },
+    "outputData": {
+        "hash": "38d08013b1c888947605356768ed5377e2537915579955135ce3104de8424fe2",
+        "location": "/S0_bga_10_77402_QGSII_flat_defaults/DAT290014-0014-00000000366.lst.bz2"
+    },
+    "outputMetadata": {
+        "hash": "79368042d3bb600c96000c9d1fed768dad7dc7c3565953bc7ab3b4dcdd6162d2",
+        "location": "./.metadata/.DAT290014-0014-00000000366.lst.bz2.jsonld.20220701T110740.473370Z"
+    },
     "siteName": "bga",
     "collaboratorName": null,
     "orcid": "https://orcid.org/0000-0001-6497-753X",
-    "accessUrl": "https://datahub.egi.eu/not_published_yet"
+    "accessUrl": [
+        "http://hdl.handle.net/21.12145/gi9Hc9c",
+        "https://datahub.egi.eu/share/37b0a0d99cbae5791db93ababbef5b90chccda"
+    ]
 }

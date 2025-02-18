@@ -3,12 +3,24 @@
     "type": "S1",
     "generationDate": "2022-10-20T09:25:38.669467Z",
     "metadata": {
-        "primary": "022346fdd84599453033db8820ce2d9501703477159190033fda59691a9b06be",
-        "secondary": "60c8fc9bbfc13007a0f7dfce1d7126c5090fcf900b96c004f31557fd7d220b91"
+        "primary": {
+            "hash": "022346fdd84599453033db8820ce2d9501703477159190033fda59691a9b06be",
+            "location": "./.metadata/.200014.pri.bz2.jsonld"
+        },
+        "secondary": {
+            "hash": "60c8fc9bbfc13007a0f7dfce1d7126c5090fcf900b96c004f31557fd7d220b91",
+            "location": "./.metadata/.200014.sec.bz2.jsonld"
+        }
     },
     "rawData": {
-        "primary": "d496c07bacac10d2c201bd27956004a0236e7789ab2e29e5116f08cbaa700aa8",
-        "secondary": "829b457f37a7451d839010f5b405f7e673ea1be9aebe9b813f5adfda8ef29f7b"
+        "primary": {
+            "hash": "d496c07bacac10d2c201bd27956004a0236e7789ab2e29e5116f08cbaa700aa8",
+            "location": "/S1_bga_60_77402_QGSII_flat_defaults/200014.pri.bz2"
+        },
+        "secondary": {
+            "hash": "829b457f37a7451d839010f5b405f7e673ea1be9aebe9b813f5adfda8ef29f7b",
+            "location": "/S1_bga_60_77402_QGSII_flat_defaults/200014.sec.bz2"
+        }
     },
     "siteName": "bga",
     "collaboratorName": null,
