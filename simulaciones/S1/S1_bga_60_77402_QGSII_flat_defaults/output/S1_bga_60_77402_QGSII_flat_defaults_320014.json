@@ -5,11 +5,11 @@
     "metadata": {
         "primary": {
             "hash": "7f97e904d34dca01f1c5a6ef432c2de72ab26ae59cd2aa4949ac79dfa66bea8e",
-            "location": "./.metadata/.320014.pri.bz2.jsonld"
+            "location": "/S1_bga_60_77402_QGSII_flat_defaults/.metadata/.320014.pri.bz2.jsonld"
         },
         "secondary": {
             "hash": "a73a88e81b172fa3425de5e8d12cac18d78e69f29158c95603625c7b509c8d7d",
-            "location": "./.metadata/.320014.sec.bz2.jsonld"
+            "location": "/S1_bga_60_77402_QGSII_flat_defaults/.metadata/.320014.sec.bz2.jsonld"
         }
     },
     "rawData": {

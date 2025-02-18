@@ -70,7 +70,7 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
     raw_data_location, file_id, orcid, access_url, site_name, type_data, generation_date = process_jsonld(metadata)
     input_data_location = process_jsonld(input_metadata)
     output_data_location = process_jsonld(output_metadata)
-    
+    root_path = raw_data_location.split('/')[1]
 
     # Generate JSON data
     json_data = {
@@ -79,7 +79,7 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
         "generationDate": generation_date,  
         "metadata": {
             "hash": metadata_hash,
-            "location": metadata
+            "location": f"/{root_path}/{metadata}"
         },
         "rawData": {
             "hash": raw_data_hash,
@@ -91,7 +91,7 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
         },
         "inputMetadata": {
             "hash": input_metadata_hash,
-            "location": input_metadata
+            "location": f"/{root_path}/{input_metadata}" 
         },
         "outputData": {
             "hash": output_data_hash,
@@ -99,7 +99,7 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
         },
         "outputMetadata": {
             "hash": output_metadata_hash,
-            "location": output_metadata
+            "location": f"/{root_path}/{output_metadata}"
         },
         "siteName": site_name,  
         "collaboratorName": None,
@@ -159,5 +159,5 @@ def find_groups(input_folder, metadata_folder, output_folder):
 if __name__ == "__main__":
     input_folder = "./input"
     output_folder = "./output"
-    metadata_folder = "./.metadata"
+    metadata_folder = ".metadata/"
     find_groups(input_folder, metadata_folder, output_folder)

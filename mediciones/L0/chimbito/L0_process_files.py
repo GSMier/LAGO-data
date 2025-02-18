@@ -63,6 +63,7 @@ def process_files(input_folder, output_folder):
         if metadata is None:
             print(f"Skipping file group {base_name} due to metadata read error.")
             continue
+        root_path = metadata.get("detector1Name", None).replace('"', "")
 
         # Extract metadata from the file name
         _, site_name, date, time = base_name.split('_', 3)
@@ -73,15 +74,21 @@ def process_files(input_folder, output_folder):
             "Id": base_name,
             "type": "L0",
             "generationDate": generation_date,
-            "metadata": mtd_hash,
-            "rawData": dat_hash,
+            "metadata": {
+                "hash": mtd_hash,
+                "location": f"/{root_path}/{base_name}.mtd.bz2"
+            },
+            "rawData": {
+                "hash": dat_hash,
+                "location": f"/{root_path}/{base_name}.dat.bz2"
+            },
             "inputData": None,
             "inputMetadata": None,
             "outputData": None,
             "outputMetadata": None,
-            "siteName": metadata.get("siteInst", None),
-            "collaboratorName": metadata.get("siteRespName", None),
-            "orcid": metadata.get("siteRespId", None),
+            "siteName": metadata.get("siteInst", None).replace('"', ""),
+            "collaboratorName": metadata.get("siteRespName", None).replace('"', ""),
+            "orcid": metadata.get("siteRespId", None).replace('"', ""),
             "accessUrl": None
         }
 
