@@ -31,12 +31,13 @@ def process_jsonld(file_path):
 
     orcid = data.get('creator', {}).get('@id')
     access_url = next((item for item in data.get('@graph', [{}]) if item.get("accessURL") != None), None).get("accessURL", None)
-    generation_date = next((item for item in data.get('@graph', [{}]) if item.get('prov:endedAtTime') != None), None).get("prov:endedAtTime", None)
+    servesDataset = next((item for item in data.get('@graph', [{}])  if item.get("servesDataset") != None), None).get("servesDataset",None)
+    generation_date = next((item for item in data.get('@graph', [{}])  if item.get('prov:endedAtTime')!= None), None).get("prov:endedAtTime",None)
     file_id = data.get('title')
     site_name = data['title'].split('_')[1]
     type_data = data['title'].split('_')[0]
 
-    return file_id, orcid, access_url, site_name, type_data, generation_date
+    return servesDataset, file_id, orcid, access_url, site_name, type_data, generation_date
 
 def process_group(primary_raw, secondary_raw, primary_metadata, secondary_metadata, output_folder):
     """Process a group of files and generate JSON output based on the schema."""
@@ -50,7 +51,8 @@ def process_group(primary_raw, secondary_raw, primary_metadata, secondary_metada
     secondary_metadata_hash = sha256_hash(secondary_metadata)
 
     # Extract orcid and accessUrl
-    file_id, orcid, access_url, site_name, type_data, generation_date = process_jsonld(primary_metadata)
+    primary_raw_location ,file_id, orcid, access_url, site_name, type_data, generation_date = process_jsonld(primary_metadata)
+    secondary_raw_location = process_jsonld(secondary_metadata)
 
     # Generate JSON data
     json_data = {
@@ -58,12 +60,24 @@ def process_group(primary_raw, secondary_raw, primary_metadata, secondary_metada
         "type": type_data,
         "generationDate": generation_date,
         "metadata": {
-            "primary": primary_metadata_hash,
-            "secondary": secondary_metadata_hash
+            "primary": {
+                "hash": primary_metadata_hash,
+                "location": primary_metadata
+            },
+            "secondary": {
+                "hash": secondary_metadata_hash,
+                "location": secondary_metadata
+            }
         },
         "rawData": {
-            "primary": primary_raw_hash,
-            "secondary": secondary_raw_hash
+            "primary": {
+                "hash": primary_raw_hash,
+                "location": primary_raw_location
+            },
+            "secondary": {
+                "hash": secondary_raw_hash,
+                "location": secondary_raw_location[0]
+            }
         },
         "siteName": site_name,
         "collaboratorName": None,
@@ -97,5 +111,5 @@ def find_groups(input_folder, metadata_folder, output_folder):
 if __name__ == "__main__":
     input_folder = "./input"  # Input folder containing the files
     output_folder = "./output"  # Folder to save the generated JSON files
-    metadata_folder = "./metadata"  # Folder containing the metadata files
+    metadata_folder = "./.metadata"  # Folder containing the metadata files
     find_groups(input_folder, metadata_folder, output_folder)

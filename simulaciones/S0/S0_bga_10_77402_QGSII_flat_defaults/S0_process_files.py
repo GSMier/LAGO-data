@@ -1,9 +1,9 @@
 import os
+import re
+from glob import glob
 import hashlib
 import json
 import bz2
-from glob import glob
-
 
 def sha256_hash(file_path):
     """Calculate the SHA-256 hash of a file with ASCII encoding."""
@@ -33,15 +33,6 @@ def sha256_bzip2_hash(file_path):
     return hasher.hexdigest()
 
 
-# def decompress_bz2(file_path):
-#     """Decompress a .bz2 file and return the decompressed content."""
-#     decompressed_file_path = file_path.rstrip('.bz2')  # Remove the .bz2 extension
-#     if not os.path.exists(decompressed_file_path):
-#         with bz2.BZ2File(file_path, 'rb') as bz2_file, open(decompressed_file_path, 'wb') as decompressed_file:
-#             for data in iter(lambda: bz2_file.read(8192), b''):
-#                 decompressed_file.write(data)
-#         print(f"Decompressed: {file_path} -> {decompressed_file_path}")
-#     return decompressed_file_path
 
 
 def process_jsonld(file_path):
@@ -51,12 +42,13 @@ def process_jsonld(file_path):
 
     orcid = data.get('creator', {}).get('@id')
     access_url = next((item for item in data.get('@graph', [{}])  if item.get("accessURL") != None), None).get("accessURL",None)
+    servesDataset = next((item for item in data.get('@graph', [{}])  if item.get("servesDataset") != None), None).get("servesDataset",None)
     generation_date = next((item for item in data.get('@graph', [{}])  if item.get('prov:endedAtTime')!= None), None).get("prov:endedAtTime",None)
     file_id = data.get('title')
     site_name = data['title'].split('_')[1]
     type_data = data['title'].split('_')[0]
 
-    return file_id, orcid, access_url, site_name, type_data, generation_date
+    return servesDataset, file_id, orcid, access_url, site_name, type_data, generation_date
 
 
 def process_group(input_data, output_data, raw_data, metadata, input_metadata, output_metadata, output_folder):
@@ -64,9 +56,7 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    # Decrypt (decompress) .bz2 files
-    # raw_data = decompress_bz2(raw_data)
-    # output_data = decompress_bz2(output_data)
+
 
     # Calculate hashes
     input_data_hash = sha256_hash(input_data)
@@ -77,20 +67,41 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
     output_metadata_hash = sha256_hash(output_metadata)
 
     # Extract orcid and accessUrl
-    file_id, orcid, access_url, site_name, type_data, generation_date = process_jsonld(metadata)
+    raw_data_location, file_id, orcid, access_url, site_name, type_data, generation_date = process_jsonld(metadata)
+    input_data_location = process_jsonld(input_metadata)
+    output_data_location = process_jsonld(output_metadata)
+    
 
     # Generate JSON data
     json_data = {
         "Id": file_id.replace('.bz2',""),
         "type": type_data,
-        "generationDate": generation_date,  # Add logic if the generation date can be extracted from the filenames
-        "metadata": metadata_hash,
-        "rawData": raw_data_hash,
-        "inputData": input_data_hash,
-        "inputMetadata": input_metadata_hash,
-        "outputData": output_data_hash,
-        "outputMetadata": output_metadata_hash,
-        "siteName": site_name,  # Populate if there’s site information available
+        "generationDate": generation_date,  
+        "metadata": {
+            "hash": metadata_hash,
+            "location": metadata
+        },
+        "rawData": {
+            "hash": raw_data_hash,
+            "location": raw_data_location
+        },
+        "inputData": {
+            "hash": input_data_hash,
+            "location": input_data_location[0]
+        },
+        "inputMetadata": {
+            "hash": input_metadata_hash,
+            "location": input_metadata
+        },
+        "outputData": {
+            "hash": output_data_hash,
+            "location": output_data_location[0]
+        },
+        "outputMetadata": {
+            "hash": output_metadata_hash,
+            "location": output_metadata
+        },
+        "siteName": site_name,  
         "collaboratorName": None,
         "orcid": orcid,
         "accessUrl": access_url
@@ -103,6 +114,24 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
 
     print(f"Generated JSON: {output_file}")
 
+def get_latest_metadata_file(base_name, metadata_folder, pattern):
+    """Find the latest metadata file based on timestamp in the filename."""
+    #matching_files = glob(os.path.join(metadata_folder, f".{base_name}{pattern}.*Z"))
+
+    pattern = re.compile(rf"^\.{base_name}{pattern}\..*Z$")
+    matching_files = [f for f in os.listdir(metadata_folder) if pattern.match(f)]
+    if not matching_files:
+        return None
+
+    # Extract timestamp using regex
+    timestamp_pattern = re.compile(r".*(\d{8}T\d{6}\.\d{6}Z)$")
+    files_with_timestamps = [
+        (f, timestamp_pattern.search(f).group(1)) for f in matching_files if timestamp_pattern.search(f)
+    ]
+
+    # Sort by timestamp (latest first) and return the latest file
+    latest_file = max(files_with_timestamps, key=lambda x: x[1])[0] if files_with_timestamps else None
+    return os.path.join(metadata_folder, latest_file)
 
 def find_groups(input_folder, metadata_folder, output_folder):
     """Find and process groups of files."""
@@ -111,25 +140,24 @@ def find_groups(input_folder, metadata_folder, output_folder):
         base_name = os.path.basename(input_file).replace(".input", "")
         base_name_split = base_name.split("-")[0]
         raw_data = os.path.join(input_folder, f"{base_name_split}.bz2")
-        metadata = os.path.join(metadata_folder, "."+f"{base_name_split}.bz2.jsonld")
-        input_data = os.path.join(input_folder, f"{base_name}.input")
-        input_metadata = os.path.join(metadata_folder, "."+f"{base_name}.input.jsonld")
-        output_data = os.path.join(input_folder, f"{base_name}.lst.bz2")
-        output_metadata = os.path.join(metadata_folder,"."+f"{base_name}.lst.bz2.jsonld")
+        
+        metadata = get_latest_metadata_file(base_name_split, metadata_folder, ".bz2.jsonld")
+        input_metadata = get_latest_metadata_file(base_name, metadata_folder, ".input.jsonld")
+        output_metadata = get_latest_metadata_file(base_name, metadata_folder, ".lst.bz2.jsonld")
 
-        # Ensure all files in the group exist
-        if all(os.path.exists(f) for f in [input_data, raw_data, metadata, input_metadata, output_data, output_metadata]):
+        input_data = os.path.join(input_folder, f"{base_name}.input")
+        output_data = os.path.join(input_folder, f"{base_name}.lst.bz2")
+
+        #Ensure all required files exist
+        required_files = [input_data, raw_data, metadata, input_metadata, output_data, output_metadata]
+        if all(f and os.path.exists(f) for f in required_files):
             process_group(input_data, output_data, raw_data, metadata, input_metadata, output_metadata, output_folder)
         else:
-            missing = [f for f in [input_data, raw_data, metadata, input_metadata, output_data, output_metadata] if not os.path.exists(f)]
+            missing = [f for f in required_files if not f or not os.path.exists(f)]
             print(f"Skipping group {base_name} due to missing files: {missing}")
 
-
-
-
 if __name__ == "__main__":
-    input_folder = "./input"  # Input folder containing the files
-    output_folder = "./output"  # Folder to save the generated JSON files
-    metadata_folder = "./metadata"  # Folder containing the metadata files
+    input_folder = "./input"
+    output_folder = "./output"
+    metadata_folder = "./.metadata"
     find_groups(input_folder, metadata_folder, output_folder)
-
