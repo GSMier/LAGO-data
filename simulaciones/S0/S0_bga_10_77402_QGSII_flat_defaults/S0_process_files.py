@@ -102,7 +102,6 @@ def process_group(input_data, output_data, raw_data, metadata, input_metadata, o
             "location": f"/{root_path}/{output_metadata}"
         },
         "siteName": site_name,  
-        "collaboratorName": None,
         "orcid": orcid,
         "accessUrl": access_url
     }

@@ -81,7 +81,6 @@ def process_group(primary_raw, secondary_raw, primary_metadata, secondary_metada
             }
         },
         "siteName": site_name,
-        "collaboratorName": None,
         "orcid": orcid,
         "accessUrl": access_url
     }
